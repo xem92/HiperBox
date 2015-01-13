@@ -95,7 +95,6 @@ var DB = {
 		var send = "DELETE FROM music WHERE music_id="+idArtist;
 		var json_response = AJAX.requestPUT(url, send);
 		response = JSON.parse(json_response);
-		console.log(response);
 		return response;
 	},
 }
@@ -347,6 +346,7 @@ var Layout = {
 	        Song.spoty_id = spoty_id;
 	    }else{
 	    	console.log("Video not found");
+			alert('Video not found');
 	    }
     },
     renderPlaylist: function(response){
