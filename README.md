@@ -1,6 +1,6 @@
 # HiperBox
 
-Aplicación Web basada en el concepto de Single Page Application (SPA) destinada a recomendar y buscar artistas nuevos al usuario. También permite escuchar al usuario una canción del artista, y si lo desea, se facilita la página de Spotify del artista, como también se permite guardar el artista en una playlist.
+Aplicación Web basada en el concepto de Single Page Application (SPA) destinada a recomendar y buscar artistas nuevos al usuario. El usuario podrá escuchar una canción del artista, y si lo desea, se facilita la página de Spotify del artista para poder escuchar más canciones. También se le permite al usuario guardar el artista deseado en una playlist.
 
 ##  Funcionalidades
 
