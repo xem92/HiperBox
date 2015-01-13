@@ -1,0 +1,505 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8">
+    <title>API Práctica Hipermedia 2014</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <!-- Le styles -->
+    <link href="tocify/demos/styles/bootstrap.css" rel="stylesheet">
+    <link href="tocify/src/stylesheets/jquery.tocify.css" rel="stylesheet">
+    <link href="tocify/demos/styles/prettify.css" rel="stylesheet" />
+
+    <script src="https://google-code-prettify.googlecode.com/svn/loader/run_prettify.js?lang=css&amp;skin=sunburst"></script>
+
+    <style>
+    body {
+      padding-top: 20px;
+    }
+    p {
+      font-size: 16px;
+    }
+    .headerDoc {
+      color: #005580;
+    }
+
+    .tocify { width: 11%; }
+
+    code { font-size: 16px; line-height: 2em; }
+
+
+@media (max-width: 767px) {
+    #toc {
+        position: relative;
+        width: 100%;
+        margin: 0px 0px 20px 0px;
+    }
+}
+	section{ margin-bottom: 60px; }
+
+    footer {
+        margin-top: 1em;
+        text-align: center;
+        padding: 0.2em 0;
+        font-size: 0.9em;
+        font-weight: bold;
+        color: #454545;
+        background: #EEE;
+        border-top: 1px solid #ccc;
+        border-bottom: 1px solid #ccc;
+    }
+    </style>
+  </head>
+
+  <body>
+
+	<div id="up" class="container-fluid">
+      <div class="row-fluid">
+        <div class="span2">
+          <div id="toc">
+          </div><!--/.well -->
+        </div><!--/span-->
+        <div class="span10">
+          <div class="hero-unit">
+			<h1>API Práctica Hipermedia 2014</h1>
+		  </div>
+
+		<section>
+
+		<p>La API utiliza los métodos <code>POST</code>, <code>GET</code> y <code>PUT</code>, para gestionar los datos de la base datos. Exsiten varias llamadas predefinidas para poder gestionar la música y las listas de reproducción, pero la API también permite ejecutar cualquier sql.</p>
+
+		<p>Para utilizar los diferentes métodos HTTP y realizar peticiones a la API desde javascript es posible con el uso de <a href="https://developer.mozilla.org/es/docs/XMLHttpRequest" target="_blank">XMLHttpRequest</a>. Ejemplo de petición POST:</p>
+		<pre class="prettyprint"><code>var xhr = new XMLHttpRequest();
+xhr.open("POST","http://api.hipermedia.local/music/new");
+xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+xhr.send("artist=Artist%20name&amp;title=Title");
+xhr.responseText;
+...</code></pre>
+
+		<p>También con la ayuda de librerías externas, como jQuery (<a href="http://api.jquery.com/jquery.post/" target="_blank">$.post</a> &amp; <a href="http://api.jquery.com/jquery.get/" target="_blank">$.get</a>):</p>
+		<pre class="prettyprint"><code>$.post( "http://api.hipermedia.local/music/new", callbackfunction);</code></pre>
+
+		<p>O utilizando el objeto <a href="http://api.jquery.com/jQuery.ajax/" target="_blank">$.ajax</a>:</p>
+		<pre class="prettyprint"><code>$.ajax({
+  type: "POST",
+  url: "http://api.hipermedia.local/music/new",
+  data: "artist=Artist%20name&amp;title=Title",
+  success: success,
+  dataType: json
+});</code></pre>
+		</section>
+
+		<section>
+			<h2>Music</h2>
+		
+            <table class="table table-striped">
+              <colgroup><col width="30%"><col width="10%"><col width="30%"><col width="*"></colgroup>
+              <thead>
+                <tr>
+                  <th>Acción</th>
+                  <th>Método</th>
+                  <th>Llamada</th>
+                  <th>Ejemplo</th>
+                </tr>
+              </thead>
+
+              <tbody>
+                
+                <tr>
+                  <th scope="col">Obtener una canción por su ID</th>
+                  <th>GET</th>
+                  <td>curl -X GET {domain}/music/{music_id}</td>
+                  <td>curl -X GET <a href="http://api.hipermedia.local/music/1" target="_blank">http://api.hipermedia.local/music/1</a></td>
+              	</tr>	
+                <tr>
+                  <td colspan="4">
+                  	<pre class="prettyprint"><code>{
+    "status": "ok",
+    "data": [
+        {
+            "music_id": "1",
+            "track_id": "dalkjflkadjf0d",
+            "artist": "Artist name",
+            "title": "Title test",
+            "playlist_id": "1",
+            "last_update": "2014-12-15 12:24:15"
+        }
+    ],
+    "debug": {
+        "query": "SELECT * FROM music WHERE music_id=1"
+    }
+}</code></pre>
+              <p>Javascript:</p>
+              <pre class="prettyprint"><code>var xhr = new XMLHttpRequest();
+xhr.open("GET","http://api.hipermedia.local/music/1");
+xhr.send();
+
+var response = xhr.responseText;
+...</code></pre>
+                  </td>
+                </tr>
+                <tr>
+                  <th scope="col">Obtener las últimas 10 canciones guardadas</th>
+                  <th>GET</th>
+                  <td>curl -X GET {domain}/music</td>
+                  <td>curl -X GET <a href="http://api.hipermedia.local/music" target="_blank">http://api.hipermedia.local/music</a></td>
+                </tr>	
+                <tr>
+                  <td colspan="4">
+                  	<pre class="prettyprint"><code>{
+    "status": "ok",
+    "data": [
+        {
+            "music_id": "1",
+            "track_id": "dalkjflkadjf0d",
+            "artist": "Artist name",
+            "title": "Song title",
+            "playlist_id": "1",
+            "last_update": "2014-12-15 12:24:15"
+        },
+        {
+            "music_id": "2",
+            "track_id": "2342342524542",
+            "artist": "Other artist",
+            "title": "Song 2",
+            "playlist_id": "1",
+            "last_update": "2014-12-15 12:40:15"
+        }
+        ...
+    ],
+    "debug": {
+        "query": "SELECT * FROM music ORDER BY music_id DESC LIMIT 10"
+    }
+}</code></pre>
+          <p>Javascript:</p>
+          <pre class="prettyprint"><code>var xhr = new XMLHttpRequest();
+xhr.open("GET","http://api.hipermedia.local/music");
+xhr.send();
+
+xhr.responseText;
+...</code></pre>
+                  </td>
+                </tr>
+                <tr>
+                  <th scope="col">Insertar una canción</th>
+                  <th>POST</th>
+                  <td>curl -X POST --data "artist={artist}&amp;title={title}&amp;track_id={track_id}&amp;playlist_id={playlist_id}" {domain}/music<strong>/new</strong></td>
+                  <td>curl -X POST --data "artist=My artist&amp;title=Title song&amp;track_id=adljfd908asd&amp;playlist_id=2" http://api.hipermedia.local/music/new</td>
+                </tr>	
+                <tr>
+                  <td colspan="4">
+                  	<pre class="prettyprint"><code>{
+    "status": "ok",
+    "debug": {
+        "query": "INSERT INTO music (artist,title,playlist_id,track_id) VALUES ('My artist','Title song',2,'adljfd908asd')",
+        "affected_rows": 1,
+        "last_id": 4,
+    }
+}</code></pre>
+              <p>Javascript:</p>
+              <pre class="prettyprint"><code>var xhr = new XMLHttpRequest();
+xhr.open("POST","http://api.hipermedia.local/music/new");
+xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+xhr.send("artist=My artist&amp;title=Title song&amp;track_id=adljfd908asd&amp;playlist_id=2");
+
+var response = xhr.responseText;
+...</code></pre>
+                  </td>
+                </tr>
+
+                <tr>
+                  <th scope="col">Actualizar una canción</th>
+                  <th>POST</th>
+                  <td>curl -X POST --data "title={title}&amp;music_id={music_id}" {domain}/music/update</strong></td>
+                  <td>curl -X POST --data "title=Other title to test&amp;music_id=2" http://api.hipermedia.local/music<strong>/update</strong></td>
+                </tr>	
+                <tr>
+                  <td colspan="4">
+                  	<pre class="prettyprint"><code>{
+    "status": "ok",
+    "debug": {
+        "query": "UPDATE music SET title='Other title to test' WHERE music_id=2",
+        "affected_rows": 1
+    }
+}</code></pre>
+                  <p>Javascript:</p>
+      <pre class="prettyprint"><code>var xhr = new XMLHttpRequest();
+xhr.open("POST","http://api.hipermedia.local/music/update");
+xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+xhr.send("title='Other title to test'&amp;music_id=2");
+xhr.responseText;
+...</code></pre>
+                  </td>
+                </tr>
+                
+                
+              </tbody>
+            </table>
+		</section>
+    <section>
+      <h2>Track</h2>
+
+      <table class="table table-striped">
+              <colgroup><col width="30%"><col width="10%"><col width="30%"><col width="*"></colgroup>
+              <thead>
+                <tr>
+                  <th>Acción</th>
+                  <th>Método</th>
+                  <th>Llamada</th>
+                  <th>Ejemplo</th>
+                </tr>
+              </thead>
+
+              <tbody>
+                
+                <tr>
+                  <th scope="col">Obtener track por su ID</th>
+                  <th>GET</th>
+                  <td>curl -X GET {domain}/track/id/{track_id}</td>
+                  <td>curl -X GET <a href="http://api.hipermedia.local/track/id/dalkjflkadjf0d" target="_blank">http://api.hipermedia.local/track/id/dalkjflkadjf0d</a></td>
+                </tr> 
+                <tr>
+                  <td colspan="4">
+                    <pre class="prettyprint"><code>{
+    "status": "ok",
+    "data": [
+        {
+            "music_id": "2",
+            "track_id": "dalkjflkadjf0d",
+            "artist": "Artist name",
+            "title": "Other title to test",
+            "playlist_id": "1",
+            "last_update": "2014-12-15 12:24:19"
+        },
+        {
+            "music_id": "3",
+            "track_id": "dalkjflkadjf0d",
+            "artist": "Artist name",
+            "title": "Title test",
+            "playlist_id": "1",
+            "last_update": "2014-12-15 12:24:19"
+        },
+        {
+            "music_id": "4",
+            "track_id": "dalkjflkadjf0d",
+            "artist": "Artist name",
+            "title": "Title test",
+            "playlist_id": "1",
+            "last_update": "2014-12-15 12:24:19"
+        }
+    ],
+    "debug": {
+        "query": "SELECT * FROM music WHERE track_id='dalkjflkadjf0d'"
+    }
+}</code></pre>
+
+      <p>Javascript:</p>
+      <pre class="prettyprint"><code>var xhr = new XMLHttpRequest();
+xhr.open("GET","http://api.hipermedia.local/track/id/dalkjflkadjf0d");
+xhr.send();
+xhr.responseText;
+...</code></pre>
+                  </td>
+                </tr>
+                </tbody>
+            </table>
+    </section>
+		<section>
+			<h2>Playlists</h2>
+
+			<table class="table table-striped">
+              <colgroup><col width="30%"><col width="10%"><col width="30%"><col width="*"></colgroup>
+              <thead>
+                <tr>
+                  <th>Acción</th>
+                  <th>Método</th>
+                  <th>Llamada</th>
+                  <th>Ejemplo</th>
+                </tr>
+              </thead>
+
+              <tbody>
+                
+                <tr>
+                  <th scope="col">Obtener una playlist por su ID</th>
+                  <th>GET</th>
+                  <td>curl -X GET {domain}/playlists/{playlist_id}</td>
+                  <td>curl -X GET <a href="http://api.hipermedia.local/playlists/1" target="_blank">http://api.hipermedia.local/playlists/1</a></td>
+              	</tr>	
+                <tr>
+                  <td colspan="4">
+                  	<pre class="prettyprint"><code>{
+    "status": "ok",
+    "data": [
+        {
+            "playlist_id": "2",
+            "name": "Title test",
+            "last_update": "2014-12-15 12:20:25"
+        }
+    ],
+    "debug": {
+        "query": "SELECT * FROM playlists WHERE playlist_id=2"
+    }
+}</code></pre>
+              <p>Javascript:</p>
+              <pre class="prettyprint"><code>var xhr = new XMLHttpRequest();
+xhr.open("GET","http://api.hipermedia.local/playlists/1");
+xhr.send();
+
+var response = xhr.responseText;
+...</code></pre>
+                  </td>
+                </tr>
+                
+                <tr>
+                  <th scope="col">Insertar una playlist</th>
+                  <th>POST</th>
+                  <td>curl -X POST --data "name={name}" {domain}/playlists<strong>/new</strong></td>
+                  <td>curl -X POST --data "name=My list" http://api.hipermedia.local/playlists/new</td>
+                </tr>	
+                <tr>
+                  <td colspan="4">
+                  	<pre class="prettyprint"><code>{
+    "status": "ok",
+    "debug": {
+        "query": "INSERT INTO playlists (name) VALUES ('My list')",
+        "affected_rows": 1,
+        "last_id": 16
+    }
+}</code></pre>
+<p>Javascript:</p>
+      <pre class="prettyprint"><code>var xhr = new XMLHttpRequest();
+xhr.open("POST","http://api.hipermedia.local/playlists/new");
+xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+xhr.send("name=My list");
+xhr.responseText;
+...</code></pre>
+                  </td>
+                </tr>
+
+                <tr>
+                  <th scope="col">Actualizar una playlist</th>
+                  <th>POST</th>
+                  <td>curl -X POST --data "playlist_id={playlist_id}&amp;name={name}" {domain}/playlists/update</strong></td>
+                  <td>curl -X POST --data "playlist_id=2&amp;name=Other title to test" http://api.hipermedia.local/playlists<strong>/update</strong></td>
+                </tr>	
+                <tr>
+                  <td colspan="4">
+                  	<pre class="prettyprint"><code>{
+    "status": "ok",
+    "debug": {
+        "query": "UPDATE playlists SET name='Other title to test' WHERE playlist_id=2",
+        "affected_rows": 1
+    }
+}</code></pre>
+<p>Javascript:</p>
+      <pre class="prettyprint"><code>var xhr = new XMLHttpRequest();
+xhr.open("POST","http://api.hipermedia.local/playlists/update");
+xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+xhr.send("playlist_id=2&amp;name=Other title to test");
+xhr.responseText;
+...</code></pre>
+                  </td>
+                </tr>
+                
+              </tbody>
+            </table>
+		
+		</section>
+
+		<section>
+			<h2>Query</h2>
+
+      <p>Con el método <strong>query</strong> de la API, es posible ejecutar cualquier sql. Para ello hay que utilizar el método <code>PUT</code> de HTTP para realizar la petición con la sql como parámetro. Por ejemplo desde terminal sería de esta manera:</p>
+
+      <pre class="prettyprint"><code>curl -X PUT --data "SELECT * FROM playlists INNER JOIN music ON playlists.playlist_id=music.playlist_id WHERE playlists.playlist_id=1 LIMIT 2" http://api.hipermedia.local/query</code></pre>
+
+      <p>Desde Javascript:</p>
+      <pre class="prettyprint"><code>var xhr = new XMLHttpRequest();
+xhr.open("PUT","http://api.hipermedia.local/query");
+xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+xhr.send("SELECT * FROM playlists INNER JOIN music ON playlists.playlist_id=music.playlist_id WHERE playlists.playlist_id=1 LIMIT 2");
+xhr.responseText;
+...</code></pre>
+
+      <p>Ejemplo de sql para obtener un playlist con 2 de sus canciones:</p>
+      <pre class="prettyprint"><code>SELECT
+  playlists.name AS playlist,
+  music_id,
+  track_id,
+  artist,
+  title AS title_song
+FROM
+  playlists
+  INNER JOIN music ON playlists.playlist_id=music.playlist_id
+WHERE
+  playlists.playlist_id=1
+LIMIT 2</code></pre>
+
+      <pre class="prettyprint"><code>{
+    "status": "ok",
+    "response": [
+        {
+            "playlist": "Default playlist",
+            "music_id": "1",
+            "track_id": "1lv2cq78vX9q9Sz8uqkTSu",
+            "artist": "Radiohead",
+            "title_song": "Music title"
+        },
+        {
+            "playlist": "Default playlist",
+            "music_id": "2",
+            "track_id": "dalkjflkadjf0d",
+            "artist": "Artist name",
+            "title_song": "Other title to test"
+        }
+    ],
+    "debug": {
+        "query": "SELECT\n  playlists.name AS playlist,\n  music_id,\n  track_id,\n  artist,\n  title AS title_song\nFROM\n  playlists\n  INNER JOIN music ON playlists.playlist_id=music.playlist_id\nWHERE\n  playlists.playlist_id=1\nLIMIT 2",
+        "affected_rows": 2,
+        "last_id": 0
+    }
+}</code></pre>
+
+      <p><strong>Sql para eliminar un registro de la tabla music:</strong></p>
+      <pre class="prettyprint"><code>DELETE FROM music WHERE music_id=10 LIMIT 1</code></pre>
+      <pre class="prettyprint"><code>{
+    "status": "ok",
+    "response": "",
+    "debug": {
+        "query": "DELETE FROM music WHERE music_id=10 LIMIT 1",
+        "affected_rows": 1,
+        "last_id": 0
+    }
+}</code></pre>
+		
+		</section>
+	
+    </div>
+  </div>
+
+<footer>
+      <p>© <a target="_blank" href="http://www.salleurl.edu/" title="laSalle">laSalle</a> 2014</p>
+    </footer>
+
+    <!-- Javascript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="tocify/libs/jquery/jquery-1.8.3.min.js"></script>
+    <script src="tocify/libs/jqueryui/jquery-ui-1.9.1.custom.min.js"></script>
+    <script src="tocify/demos/javascripts/bootstrap.js"></script>
+    <script src="tocify/src/javascripts/jquery.tocify.js"></script>
+    <script src="tocify/demos/javascripts/prettify.js"></script>
+    <script>
+        $(function() {
+            var toc = $("#toc").tocify({
+              selectors: "h2,h3,h4,h5"
+            }).data("toc-tocify");
+
+            prettyPrint();
+            $(".optionName").popover({ trigger: "hover" });
+        });
+    </script>
+</body></html>

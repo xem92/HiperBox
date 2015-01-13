@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<title>HiperBox</title>
+		<link rel="shortcut icon" href="img/LogoIcono48x48.jpg" >
+
+		<meta name="author" content="Alvaro Aguilar">
+		<meta name="author" content="Joan Guillem Castell">
+		<meta name="author" content="Isabel Borras">
+
+		<meta name="description" content="HiperBox">
+
+		<!-- Metadata para ajustar el ancho al ancho del dispositivo e indicar q no se debe hacer zoom-->
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<!-- Google Fonts -->
+		<!--<link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>-->
+		<!-- Reset CSS -->
+        <link rel="stylesheet" type="text/css" href="css/reset.css">
+		<!-- Font Awesome -->
+		<!--<link type="text/css" rel="stylesheet" href="css/font-awesome.min.css"/>-->
+		<!-- Main styles -->
+        <link rel="stylesheet" type="text/css" href="css/main.css">	
+        
+    </head>
+	<body>
+
+		<script src="js/hiperbox.js"></script>
+
+		<header>
+			<div id="header">
+				<img id="logo" src="img/e.jpg" alt="My Blog">
+				<div class="buscador">
+					<input class="cajaBuscador" id="box" type="text" value="Buscar..." onfocus="if (this.value == 'Buscar...') {this.value = '';}" onblur="if (this.value == '') {this.value = 'Buscar...';}" />
+					<input class = "button" id="button" type="button" value="Buscar" />
+				</div>
+			</div>
+		</header>
+
+		<section>
+			
+			<div class="cuerpo">
+
+				<div class="vid" id="vid">
+					<embed id="songVid">
+					</embed>
+				</div>
+				<div class="informacionvideo">
+					<h2 class="titulo00"> Información:</h2>
+					<p id="info">Info</p>
+				</div>
+
+				<input id="addSong" class="boton2" type="button" value= "Añadir&#x00A;a&#x00A;Playlist" />
+
+				<input id="goSpotify" class="boton3" type="button" value="Ir a Spotify" />
+
+				<div class="playlist">
+					<h2 class="titulo0"> Play List </h2>
+						
+					<img class="imgflecha" id="flecha1" src="img/flechaup.png">
+
+					<ul class ='listasongs'>
+						<li>
+							<div>
+								<img class="imgPlayList" id="playlist1">
+								<h4 id="titolPlay1"></h4>
+								<img src="img/cancel.png" class="deleteArtist" id="delete1">
+							</div>
+						</li>
+						<li>
+							<div>
+								<img class="imgPlayList" id="playlist2">
+								<h4 id="titolPlay2"></h4>
+								<img src="img/cancel.png" class="deleteArtist" id="delete2">
+							</div>
+						</li>
+						<li>
+							<div>
+								<img class="imgPlayList" id="playlist3">
+								<h4 id="titolPlay3"></h4>
+								<img src="img/cancel.png" class="deleteArtist" id="delete3">
+							</div>
+						</li>
+						<li>
+							<div>
+								<img class="imgPlayList" id="playlist4">
+								<h4 id="titolPlay4"></h4>
+								<img src="img/cancel.png" class="deleteArtist" id="delete4">
+							</div>
+						</li>
+
+					</ul>	
+
+					<img class="imgflecha" id="flecha2" src="img/flechadown.png">
+
+				</div>
+		
+			</div>
+
+		</section>
+
+		<section>
+
+			<h2 class= "titulo1"> Búsqueda </h2>
+			<div id='busqueda'>
+				<div class='busqueda-item photoBusqueda'>
+					<section>
+						<figure>
+							<a>
+								<img class="imagesBusqueda" id="busqueda1" alt="portfolio image first">
+							</a>
+							<figcaption>
+								<h3 id="tituloBusqueda1">Titulo video</h3>
+							</figcaption>
+						</figure>
+					</section>
+				</div>
+				<div class='busqueda-item photoBusqueda'>
+					<section>
+						<figure>
+							<a>
+								<img class="imagesBusqueda" id="busqueda2" alt="portfolio image first">
+							</a>
+							<figcaption>
+								<h3 id="tituloBusqueda2">Titulo video</h3>
+							</figcaption>
+						</figure>
+					</section>
+				</div>
+				<div class='busqueda-item photoBusqueda'>
+					<section>
+						<figure>
+							<a>
+								<img class="imagesBusqueda" id="busqueda3" alt="portfolio image first">
+							</a>
+							<figcaption>
+								<h3 id="tituloBusqueda3">Titulo video</h3>
+							</figcaption>
+						</figure>
+					</section>
+				</div>
+				<div class='busqueda-item photoBusqueda'>
+					<section>
+						<figure>
+							<a>
+								<img class="imagesBusqueda" id="busqueda4" alt="portfolio image first">
+							</a>
+							<figcaption>
+								<h3 id="tituloBusqueda4">Titulo video</h3>
+							</figcaption>
+						</figure>
+					</section>
+				</div>
+			</div>
+
+
+
+			<h2 class="titulo2"> Recomendaciones </h2>
+			<div id='recomendaciones'>
+				<div class='recomendaciones-item photoRecomendaciones'>
+					<section>
+						<figure>
+							<a>
+								<img class="imagesRecomendaciones" id="recomendacion1" alt="portfolio image first">
+							</a>
+							<figcaption>
+						  		<h3 id="tituloRecomendacion1">Titulo video</h3>
+							</figcaption>
+						</figure>
+					</section>
+				</div>
+				<div class='recomendaciones-item photoRecomendaciones'>
+					<section>
+						<figure>
+							<a>
+								<img class="imagesRecomendaciones" id="recomendacion2" alt="portfolio image first">
+							</a>
+							<figcaption>
+								<h3 id="tituloRecomendacion2">Titulo video</h3>
+							</figcaption>
+						</figure>
+					</section>
+				</div>
+				<div class='recomendaciones-item photoRecomendaciones'>
+					<section>
+						<figure>
+							<a>
+								<img class="imagesRecomendaciones" id="recomendacion3" alt="portfolio image first">
+							</a>
+							<figcaption>
+								<h3 id="tituloRecomendacion3">Titulo video</h3>
+							</figcaption>
+						</figure>
+					</section>
+				</div>
+				<div class='recomendaciones-item photoRecomendaciones'>
+					<section>
+						<figure>
+							<a>
+								<img class="imagesRecomendaciones" id="recomendacion4" alt="portfolio image first">
+							</a>
+							<figcaption>
+								<h3 id="tituloRecomendacion4">Titulo video</h3>
+							</figcaption>
+						</figure>
+					</section>
+				</div>
+			</div>
+
+		</section>
+
+
+		<footer class="footer">
+			<a class="logo1" href="https://www.spotify.com/es/" target="_blank" ><img src="img/logo_Spotify.jpg" alt="Logo1"></a>
+			<a class="logo2" href="https://www.youtube.com/?hl=es&gl=ES" target="_blank"><img src="img/logo_YouTube.png" alt="Logo2"></a>
+			<a class="logo3" href="http://www.salleurl.edu/" target="_blank"><img src="img/logo_laSalle.jpg" alt="Logo1"></a>
+			<a class="logo4" href="http://the.echonest.com/" target="_blank"><img src="img/logo_Echonest.jpg" alt="Logo1"></a>
+		</footer>
+
+	</body>

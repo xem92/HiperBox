@@ -13,5 +13,5 @@ Aplicación Web basada en el concepto de Single Page Application (SPA) destinada
 ## APIs utilizadas
 * **the Echo Nest:** API utilizada para buscar y recomendar artistas. http://developer.echonest.com/
 * **Spotify:** API utilizada para obtener el enlace del artista y así poder acceder a su página en Spotify. https://developer.spotify.com/
-* **YouTube:** No se utiliza la API en si de YouTube, solo se utiliza el embed de YouTube. https://www.youtube.com/
+* **YouTube:** No se utiliza la API en sí de YouTube, solo se utiliza el embed de YouTube. https://www.youtube.com/
 * **Hipermedia:** API facilitada por la asignatura de Programación Hipermedia para poder acceder a la base de datos. https://github.com/raulmoron/vmhipermedia
